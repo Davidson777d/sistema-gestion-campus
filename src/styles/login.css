@@ -1,0 +1,962 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-container {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 120px 25px 40px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(5, 31, 75, 0.90),
+      rgba(0, 87, 168, 0.78),
+      rgba(5, 31, 75, 0.94)
+    ),
+    url("/unicitCampus.jpg") center / cover no-repeat;
+}
+
+.login-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(255, 204, 0, 0.20),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(75, 160, 255, 0.25),
+      transparent 30%
+    );
+
+  pointer-events: none;
+}
+
+.top-navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px 40px;
+
+  background: rgba(0, 65, 135, 0.92);
+  border-bottom: 3px solid #ffcc00;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
+.brand-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.lang-selector {
+  font-size: 0.9rem;
+  color: #e5efff;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.lang-selector:hover {
+  color: #ffcc00;
+}
+
+.login-card {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  max-width: 1100px;
+  min-height: 500px;
+
+  padding: 35px;
+  gap: 40px;
+
+  background: rgba(12, 43, 83, 0.78);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 22px;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+
+  animation: 0.7s ease;
+}
+
+.card-image-section {
+  flex: 1.1;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.campus-img {
+  display: block;
+
+  width: 100%;
+  height: 350px;
+
+  object-fit: cover;
+
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.campus-img:hover {
+  transform: scale(1.02);
+
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
+}
+
+.card-form-section {
+  flex: 0.9;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.card-form-section h2 {
+  text-align: center;
+
+  font-size: 2rem;
+  font-weight: 700;
+
+  margin-bottom: 35px;
+
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.input-group {
+  margin-bottom: 22px;
+}
+
+.input-group label {
+  display: block;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  color: #d6e5fa;
+
+  margin-bottom: 9px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input {
+  width: 100%;
+
+  padding: 13px 15px;
+
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  background: #f0f5ff;
+  color: #172b4d;
+
+  font-size: 1rem;
+
+  outline: none;
+
+  transition:
+     0.2s ease,
+     0.2s ease,
+     0.2s ease;
+}
+
+.input-wrapper input:focus {
+  background: #ffffff;
+
+  border-color: #ffcc00;
+
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.18);
+}
+
+.input-wrapper input::placeholder {
+  color: #8292a8;
+}
+
+.form-options {
+  margin: 5px 0 25px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  font-size: 0.9rem;
+  color: #d6e5fa;
+
+  cursor: pointer;
+}
+
+.remember-me input {
+  width: 16px;
+  height: 16px;
+
+  accent-color: #ffcc00;
+  cursor: pointer;
+}
+
+.login-btn {
+  width: 100%;
+
+  padding: 13px;
+
+  border-radius: 9px;
+  border: 2px solid #ffcc00;
+
+  background: #ffcc00;
+  color: #12366a;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.login-btn:hover {
+  background: #ffda45;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.login-btn:active {
+  transform: translateY(0);
+}
+
+.forgot-password {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.forgot-password a {
+  color: #d6e5fa;
+
+  font-size: 0.9rem;
+  text-decoration: none;
+
+  transition: color 0.2s ease;
+}
+
+.forgot-password a:hover {
+  color: #ffcc00;
+  text-decoration: underline;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .login-container {
+    padding: 110px 20px 35px;
+  }
+
+  .login-card {
+    gap: 25px;
+    padding: 25px;
+  }
+
+  .campus-img {
+    height: 300px;
+  }
+
+  .card-form-section {
+    padding: 10px;
+  }
+
+  .card-form-section h2 {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .login-container {
+    padding: 100px 15px 25px;
+  }
+
+  .top-navbar {
+    padding: 16px 18px;
+  }
+
+  .logo-img {
+    height: 32px;
+  }
+
+  .brand-title {
+    font-size: 0.95rem;
+  }
+
+  .lang-selector {
+    font-size: 0.72rem;
+  }
+
+  .login-card {
+    flex-direction: column;
+
+    width: 100%;
+    min-height: auto;
+
+    padding: 20px;
+    gap: 20px;
+
+    border-radius: 16px;
+  }
+
+  .card-image-section {
+    width: 100%;
+  }
+
+  .campus-img {
+    width: 100%;
+    height: 190px;
+    margin: 0;
+  }
+
+  .card-form-section {
+    width: 100%;
+    padding: 5px;
+  }
+
+  .card-form-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+  }
+
+  .input-group {
+    margin-bottom: 18px;
+  }
+}
+
+@media (max-width: 380px) {
+  .top-navbar {
+    padding: 14px 12px;
+  }
+
+  .logo-section {
+    gap: 7px;
+  }
+
+  .brand-title {
+    font-size: 0.85rem;
+  }
+
+  .lang-selector {
+    font-size: 0.65rem;
+  }
+
+  .login-card {
+    padding: 15px;
+  }
+
+  .campus-img {
+    height: 150px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================
+   LOGIN - AJUSTE FINAL
+   TODO EL LOGIN DEBE CABER EN LA PANTALLA
+   ========================================================= */
+
+.login-main-content {
+  margin-left: 0 !important;
+  width: 100% !important;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 0 !important;
+}
+
+
+/* =========================================================
+   CONTENEDOR
+   ========================================================= */
+
+.login-container {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 0 clamp(15px, 3vw, 45px);
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   BARRA SUPERIOR
+   ========================================================= */
+
+.top-navbar {
+  position: relative;
+
+  width: 100%;
+  height: 78px;
+  min-height: 78px;
+
+  padding: 12px clamp(18px, 3vw, 45px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   TARJETA PRINCIPAL
+   ========================================================= */
+
+.login-card {
+  width: min(1250px, 100%);
+
+  height: calc(100dvh - 105px);
+  max-height: 680px;
+
+  min-height: 0;
+
+  margin: 15px auto 12px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.1fr)
+    minmax(350px, 0.9fr);
+
+  align-items: center;
+
+  gap: clamp(25px, 3vw, 55px);
+
+  padding: clamp(22px, 3vw, 38px);
+
+  flex-shrink: 1;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   IMAGEN
+   ========================================================= */
+
+.card-image-section {
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.campus-img {
+  display: block;
+
+  width: 100%;
+  height: min(58vh, 500px);
+
+  min-height: 0;
+
+  object-fit: cover;
+
+  border-radius: 16px;
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.card-form-section {
+  width: 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  padding: 10px clamp(5px, 2vw, 20px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-form-section h2 {
+  font-size: clamp(1.6rem, 2.7vw, 2.25rem);
+
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+
+.input-group {
+  margin-bottom: clamp(14px, 2.5vh, 22px);
+}
+
+.input-group label {
+  margin-bottom: 7px;
+}
+
+.input-wrapper input {
+  width: 100%;
+  height: 50px;
+  min-height: 50px;
+}
+
+.form-options {
+  margin: 4px 0 clamp(15px, 2.5vh, 25px);
+}
+
+.login-btn {
+  height: 52px;
+  min-height: 52px;
+}
+
+.forgot-password {
+  margin-top: clamp(15px, 2.5vh, 25px);
+}
+
+
+/* =========================================================
+   MONITORES GRANDES
+   ========================================================= */
+
+@media (min-width: 1400px) {
+
+  .login-card {
+    width: min(1300px, 92vw);
+
+    max-height: 700px;
+
+    grid-template-columns:
+      minmax(0, 1.15fr)
+      minmax(400px, 0.85fr);
+  }
+
+  .campus-img {
+    height: min(60vh, 530px);
+  }
+
+}
+
+
+/* =========================================================
+   LAPTOPS CON POCA ALTURA
+   ========================================================= */
+
+@media (max-height: 800px) and (min-width: 701px) {
+
+  .top-navbar {
+    height: 68px;
+    min-height: 68px;
+  }
+
+  .login-card {
+    height: calc(100dvh - 88px);
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    padding: 22px 30px;
+
+    gap: 30px;
+  }
+
+  .campus-img {
+    height: min(56vh, 390px);
+  }
+
+  .card-form-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 18px;
+  }
+
+  .input-group {
+    margin-bottom: 13px;
+  }
+
+  .input-wrapper input {
+    height: 45px;
+    min-height: 45px;
+  }
+
+  .login-btn {
+    height: 47px;
+    min-height: 47px;
+  }
+
+  .forgot-password {
+    margin-top: 14px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLETS
+   ========================================================= */
+
+@media (max-width: 800px) and (min-height: 600px) {
+
+  .login-container {
+    padding: 0 15px;
+  }
+
+  .top-navbar {
+    height: 68px;
+    min-height: 68px;
+
+    padding: 10px 15px;
+  }
+
+  .login-card {
+    width: min(650px, 100%);
+
+    height: calc(100dvh - 85px);
+
+    max-height: none;
+
+    margin: 8px auto;
+
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+
+    padding: 16px;
+
+    overflow: hidden;
+  }
+
+  .card-image-section {
+    height: 35%;
+    min-height: 0;
+  }
+
+  .campus-img {
+    width: 100%;
+    height: 100%;
+
+    min-height: 0;
+
+    object-fit: cover;
+  }
+
+  .card-form-section {
+    height: 65%;
+
+    padding: 5px 10px;
+
+    justify-content: center;
+  }
+
+  .card-form-section h2 {
+    margin-bottom: 15px;
+    font-size: 1.6rem;
+  }
+
+  .input-group {
+    margin-bottom: 12px;
+  }
+
+  .input-wrapper input {
+    height: 45px;
+    min-height: 45px;
+  }
+
+  .form-options {
+    margin: 4px 0 12px;
+  }
+
+  .login-btn {
+    height: 45px;
+    min-height: 45px;
+  }
+
+  .forgot-password {
+    margin-top: 12px;
+  }
+
+}
+
+
+/* =========================================================
+   CELULARES
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .login-container {
+    padding: 0 10px;
+  }
+
+  .top-navbar {
+    height: 62px;
+    min-height: 62px;
+
+    padding: 8px 10px;
+  }
+
+  .logo-img {
+    height: 30px;
+  }
+
+  .brand-title {
+    font-size: 0.85rem;
+  }
+
+  .lang-selector {
+    font-size: 0.65rem;
+  }
+
+  .login-card {
+    height: calc(100dvh - 72px);
+
+    margin: 5px auto;
+
+    padding: 12px;
+
+    gap: 8px;
+
+    border-radius: 14px;
+  }
+
+  .card-image-section {
+    height: 28%;
+  }
+
+  .campus-img {
+    height: 100%;
+
+    border-radius: 10px;
+  }
+
+  .card-form-section {
+    height: 72%;
+
+    padding: 0 5px;
+
+    justify-content: center;
+  }
+
+  .card-form-section h2 {
+    font-size: 1.35rem;
+
+    margin-bottom: 12px;
+  }
+
+  .input-group {
+    margin-bottom: 10px;
+  }
+
+  .input-group label {
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+  }
+
+  .input-wrapper input {
+    height: 42px;
+    min-height: 42px;
+
+    padding: 9px 12px;
+
+    font-size: 0.9rem;
+  }
+
+  .form-options {
+    margin: 3px 0 10px;
+  }
+
+  .remember-me {
+    font-size: 0.8rem;
+  }
+
+  .login-btn {
+    height: 43px;
+    min-height: 43px;
+
+    padding: 8px;
+  }
+
+  .forgot-password {
+    margin-top: 10px;
+  }
+
+  .forgot-password a {
+    font-size: 0.8rem;
+  }
+
+}
+
+
+/* =========================================================
+   CELULARES PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+  .top-navbar {
+    height: 56px;
+    min-height: 56px;
+  }
+
+  .logo-img {
+    height: 27px;
+  }
+
+  .brand-title {
+    font-size: 0.75rem;
+  }
+
+  .lang-selector {
+    font-size: 0.58rem;
+  }
+
+  .login-card {
+    height: calc(100dvh - 64px);
+
+    padding: 9px;
+  }
+
+  .card-image-section {
+    height: 25%;
+  }
+
+  .card-form-section {
+    height: 75%;
+  }
+
+  .card-form-section h2 {
+    font-size: 1.2rem;
+
+    margin-bottom: 9px;
+  }
+
+  .input-group {
+    margin-bottom: 8px;
+  }
+
+  .input-wrapper input {
+    height: 39px;
+    min-height: 39px;
+  }
+
+  .login-btn {
+    height: 40px;
+    min-height: 40px;
+  }
+
+}
+
+
+/* =========================================================
+   NUNCA MOSTRAR SCROLL EN EL LOGIN
+   ========================================================= */
+
+.login-container,
+.login-main-content {
+  overflow: hidden !important;
+}

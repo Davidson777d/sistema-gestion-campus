@@ -1,122 +1,162 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate
+} from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+
+import Login from "./pages/Login";
+
+import Dashboard from "./pages/Dashboard";
+import Instalaciones from "./pages/Instalaciones";
+import Disponibilidad from "./pages/Disponibilidad";
+import Solicitudes from "./pages/Solicitudes";
+import Aprobaciones from "./pages/Aprobaciones";
+import Reasignaciones from "./pages/Reasignaciones";
+import Historial from "./pages/Historial";
+
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { SolicitudesProvider } from "./context/SolicitudesContext";
+
+import ProtectedRoute from "./routes/ProtectedRoute";
+
+function Layout() {
+  const { usuario } = useAuth();
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app">
 
-      <div className="ticks"></div>
+      {usuario && <Sidebar />}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      <div className={`main-content ${usuario ? "" : "login-main-content"}`}>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        {usuario && <Navbar />}
+
+        <Routes>
+
+          {/* LOGIN */}
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+
+          {/* Si entra a "/" */}
+          <Route
+            path="/"
+            element={
+              usuario
+                ? <Navigate to="/dashboard" replace />
+                : <Navigate to="/login" replace />
+            }
+          />
+
+          {/* DASHBOARD */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* INSTALACIONES */}
+          <Route
+            path="/instalaciones"
+            element={
+              <ProtectedRoute>
+                <Instalaciones />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* DISPONIBILIDAD */}
+          <Route
+            path="/disponibilidad"
+            element={
+              <ProtectedRoute>
+                <Disponibilidad />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* SOLICITUDES */}
+          <Route
+            path="/solicitudes"
+            element={
+              <ProtectedRoute>
+                <Solicitudes />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* APROBACIONES */}
+          <Route
+            path="/aprobaciones"
+            element={
+              <ProtectedRoute roles={["Decano"]}>
+                <Aprobaciones />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* REASIGNACIONES */}
+          <Route
+            path="/reasignaciones"
+            element={
+              <ProtectedRoute roles={["Decano"]}>
+                <Reasignaciones />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* HISTORIAL */}
+          <Route
+            path="/historial"
+            element={
+              <ProtectedRoute roles={["Decano"]}>
+                <Historial />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* RUTA NO EXISTENTE */}
+          <Route
+            path="*"
+            element={
+              <Navigate
+                to={usuario ? "/dashboard" : "/login"}
+                replace
+              />
+            }
+          />
+
+        </Routes>
+
+      </div>
+    </div>
+  );
 }
 
-export default App
+function App() {
+  return (
+    <BrowserRouter>
+
+      <AuthProvider>
+
+        <SolicitudesProvider>
+
+          <Layout />
+
+        </SolicitudesProvider>
+
+      </AuthProvider>
+
+    </BrowserRouter>
+  );
+}
+
+export default App;
